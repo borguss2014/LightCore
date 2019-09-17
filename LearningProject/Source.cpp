@@ -4,6 +4,7 @@
 #include "Shader.h"
 
 #include <iostream>
+#include <chrono>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -19,6 +20,14 @@ void processInput(GLFWwindow* window);
 // settings
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1440;
+
+float camSpeed = 0.5f;
+
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 
 int main()
 {
@@ -44,6 +53,9 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+	//VSync
+	glfwSwapInterval(0);
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -197,14 +209,12 @@ int main()
 	glBindVertexArray(0);
 
 
-	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f));
+	
+
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), (float)(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
 
-
-	
 
 	ourShader.use();
 
@@ -212,6 +222,8 @@ int main()
 	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
+		std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::high_resolution_clock::now();
+
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -221,6 +233,12 @@ int main()
 
 		// render
 		// ------
+
+
+		
+
+		glm::mat4 view;
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		for (unsigned int i = 0; i < 10; i++)
 		{
@@ -253,6 +271,12 @@ int main()
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		std::chrono::time_point<std::chrono::steady_clock> end = std::chrono::high_resolution_clock::now();
+
+		std::chrono::steady_clock::duration time = (end - start);
+
+		std::cout << time/std::chrono::milliseconds(1) << " ms\n";
 	}
 
 	// optional: de-allocate all resources once they've outlived their purpose:
@@ -273,14 +297,37 @@ void processInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, true);
+		return;
 	}
-	else if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
-	else if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
+
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		cameraPos += cameraFront * camSpeed;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		cameraPos -= cameraFront * camSpeed;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * camSpeed;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * camSpeed;
 	}
 }
 
