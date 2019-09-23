@@ -13,21 +13,37 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Camera.h"
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
 void processInput(GLFWwindow* window);
 
 // settings
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1440;
 
-float camSpeed = 0.5f;
+std::chrono::duration<float> delta;
+
+
+float lastX = SCR_WIDTH / 2;
+float lastY = SCR_HEIGHT / 2;
+
+
+bool firstMouse = true;
+
 
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+
+glm::vec3 cameraFront;
+
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 int main()
 {
@@ -55,7 +71,10 @@ int main()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//VSync
-	glfwSwapInterval(0);
+	//glfwSwapInterval(0);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouse_callback);
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -209,20 +228,24 @@ int main()
 	glBindVertexArray(0);
 
 
-	
-
-
-	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(45.0f), (float)(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
-
-
 	ourShader.use();
+
+	std::chrono::time_point<std::chrono::steady_clock> lastFrameTime = std::chrono::high_resolution_clock::now();
+
+	float lastFrame = 0.0f;
+
+	float angle = 0.0f;
 
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
 		std::chrono::time_point<std::chrono::steady_clock> start = std::chrono::high_resolution_clock::now();
+
+		delta = start - lastFrameTime;
+
+		lastFrameTime = start;
+
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -234,11 +257,19 @@ int main()
 		// render
 		// ------
 
+		angle += 6.0f * delta.count();
 
-		
+		glm::mat4 projection;
+		projection = glm::perspective(glm::radians(45.0f), (float)(SCR_WIDTH / SCR_HEIGHT), 0.1f, 100.0f);
 
-		glm::mat4 view;
-		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		unsigned int projectionLoc = glGetUniformLocation(ourShader.ID, "projection");
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+		glm::mat4 view = camera.GetViewMatrix();
+
+		unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
 		for (unsigned int i = 0; i < 10; i++)
 		{
@@ -246,18 +277,14 @@ int main()
 
 			model = glm::translate(model, cubePositions[i]);
 				
-			float angle = 20.0f * (i+1);
-			model = glm::rotate(model, (float) glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			//float angle = 20.0f * (i+1);
+
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
 			unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-
-			unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-			unsigned int projectionLoc = glGetUniformLocation(ourShader.ID, "projection");
-			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			
 
 			// render the triangle
 
@@ -272,11 +299,12 @@ int main()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
-		std::chrono::time_point<std::chrono::steady_clock> end = std::chrono::high_resolution_clock::now();
+		/*std::chrono::time_point<std::chrono::steady_clock> end = std::chrono::high_resolution_clock::now();
 
-		std::chrono::steady_clock::duration time = (end - start);
+		std::chrono::steady_clock::duration time = (end - start);*/
 
-		std::cout << time/std::chrono::milliseconds(1) << " ms\n";
+		//std::cout << time/std::chrono::milliseconds(1) << " ms\n";
+		std::cout << delta.count() * 1000.0f << "ms\n";
 	}
 
 	// optional: de-allocate all resources once they've outlived their purpose:
@@ -312,22 +340,42 @@ void processInput(GLFWwindow* window)
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cameraPos += cameraFront * camSpeed;
+		camera.ProcessKeyboard(FORWARD, delta.count());
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cameraPos -= cameraFront * camSpeed;
+		camera.ProcessKeyboard(BACKWARD, delta.count());
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * camSpeed;
+		camera.ProcessKeyboard(RIGHT, delta.count());
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * camSpeed;
+		camera.ProcessKeyboard(LEFT, delta.count());
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	{
+		camera.setSpeed(5.0f);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+	{
+		camera.setSpeed(2.0f);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+	{
+		glfwSwapInterval(0);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_RELEASE)
+	{
+		glfwSwapInterval(1);
 	}
 }
 
@@ -338,4 +386,22 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	// make sure the viewport matches the new window dimensions; note that width and 
 	// height will be significantly larger than specified on retina displays.
 	glViewport(0, 0, width, height);
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xOffset = xpos - lastX;
+	float yOffset = lastY - ypos;
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouse(xOffset, yOffset);
 }
