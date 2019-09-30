@@ -295,21 +295,42 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
-		unsigned int objectColorLoc = glGetUniformLocation(ourShader.ID, "objectColor");
-		glUniform3fv(objectColorLoc, 1, glm::value_ptr(objectColor));
 
-		unsigned int lightColorLoc = glGetUniformLocation(ourShader.ID, "lightColor");
-		glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
-
-		unsigned int lightPosLoc = glGetUniformLocation(ourShader.ID, "lightPos");
-		glUniform3fv(lightPosLoc, 1, glm::value_ptr(lightPos));
 
 		unsigned int camPosLoc = glGetUniformLocation(ourShader.ID, "camPos");
 		glUniform3fv(camPosLoc, 1, glm::value_ptr(camera.cameraPos));
 
 
-		// render the triangle
 
+		unsigned int lightLoc = glGetUniformLocation(ourShader.ID, "light.position");
+		glUniform3fv(lightLoc, 1, glm::value_ptr(lightPos));
+
+		lightLoc = glGetUniformLocation(ourShader.ID, "light.ambient");
+		glUniform3fv(lightLoc, 1, glm::value_ptr(glm::vec3(0.2f, 0.2f, 0.2f)));
+
+		lightLoc = glGetUniformLocation(ourShader.ID, "light.diffuse");
+		glUniform3fv(lightLoc, 1, glm::value_ptr(glm::vec3(0.5f, 0.5f, 0.5f)));
+
+		lightLoc = glGetUniformLocation(ourShader.ID, "light.specular");
+		glUniform3fv(lightLoc, 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
+
+
+		
+
+		unsigned int materialLoc = glGetUniformLocation(ourShader.ID, "material.ambient");
+		glUniform3fv(materialLoc, 1, glm::value_ptr(glm::vec3(1.0f, 0.5f, 0.31f)));
+
+		materialLoc = glGetUniformLocation(ourShader.ID, "material.diffuse");
+		glUniform3fv(materialLoc, 1, glm::value_ptr(glm::vec3(1.0f, 0.5f, 0.31f)));
+
+		materialLoc = glGetUniformLocation(ourShader.ID, "material.specular");
+		glUniform3fv(materialLoc, 1, glm::value_ptr(glm::vec3(0.5f, 0.5f, 0.5f)));
+
+		materialLoc = glGetUniformLocation(ourShader.ID, "material.shininess");
+		glUniform1f(materialLoc, 128.0f);
+
+
+		// render the triangle
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -329,7 +350,7 @@ int main()
 		modelLoc = glGetUniformLocation(lightShader.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-		lightColorLoc = glGetUniformLocation(lightShader.ID, "lightColor");
+		unsigned int lightColorLoc = glGetUniformLocation(lightShader.ID, "lightColor");
 		glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
 
 		glBindVertexArray(lightVAO);

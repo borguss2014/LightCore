@@ -1,5 +1,20 @@
 #version 330 core
 
+struct Material {
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float shininess;
+};
+
+struct Light {
+	vec3 position;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
 out vec4 FragColor;  
 
 //in vec3 ourColor;
@@ -9,33 +24,30 @@ in vec3 vertexPos;
 
 //uniform sampler2D ourTexture;
 
-uniform vec3 lightColor;
-uniform vec3 objectColor;
-
-uniform vec3 lightPos;
 uniform vec3 camPos;
+
+uniform Material material;
+uniform Light light;
   
 void main()
 {
-    //FragColor = vec4(ourColor, 1.0);
-	//FragColor = texture(ourTexture, TexCoord);
+	//Ambient light
+	vec3 ambientLight = material.ambient * light.ambient;
 
-	vec3 lightDir = normalize(lightPos - vertexPos);
+	//Diffuse light
+	vec3 lightDir = normalize(light.position - vertexPos);
+	float diffuseFactor = max(dot(normalize(Normal), lightDir), 0.0f);
+	vec3 diffuseLight = light.diffuse * (diffuseFactor * material.diffuse);
+	
+
+	//Specular light
+	vec3 viewDir = normalize(camPos - vertexPos);
 	vec3 reflectedLightDir = reflect(-lightDir, Normal);
 
-	vec3 viewDir = normalize(camPos - vertexPos);
+	float specularFactor = pow(max(dot(viewDir, reflectedLightDir), 0.0), material.shininess);
+	vec3 specularLight = material.specular * specularFactor * light.specular;
 
-	float specularStrength = 0.5;
-	float shininessFactor = 32;
+	vec3 lightResult = ambientLight + diffuseLight + specularLight;
 
-	float cameraRayReflAngle = max(dot(viewDir, reflectedLightDir), 0.0);
-	vec3 specularLight = specularStrength * pow(cameraRayReflAngle, shininessFactor) * lightColor;
-
-	float lightNormalAngle = max(dot(normalize(Normal), lightDir), 0.0f);
-	vec3 diffuseLight = lightNormalAngle * lightColor;
-
-	float ambientStrength = 0.2;
-	vec3 ambientLight = ambientStrength * lightColor;
-
-	FragColor = vec4( (ambientLight + diffuseLight + specularLight) * objectColor, 1.0);
+	FragColor = vec4(lightResult, 1.0);
 }
