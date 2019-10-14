@@ -3,6 +3,8 @@
 out vec4 FragColor;
 
 uniform vec3 lightColor;
+
+uniform float time;
   
 void main()
 {

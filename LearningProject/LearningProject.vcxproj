@@ -46,6 +46,10 @@
     <IncludePath>D:\VS Repos\LearningProject\LearningProject\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\VS Repos\LearningProject\LearningProject\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>D:\VS Repos\LearningProject\LearningProject\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\VS Repos\LearningProject\LearningProject\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -55,6 +59,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -76,11 +81,13 @@
   <ItemGroup>
     <ClCompile Include="C:\Users\Root\Desktop\glad\src\glad.c" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="lightShader.frag" />
