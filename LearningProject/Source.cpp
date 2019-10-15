@@ -60,11 +60,18 @@ int main()
 	window_properties.fullscreen = false;
 
 	Window m_Window(window_properties);
-	m_Window.createWindow();
+	m_Window.CreateWindow();
 
-	while (!glfwWindowShouldClose(m_Window.getWindow()))
+	int32_t monitorCnt = 0;
+	GLFWmonitor** monitors = m_Window.GetAvailableMonitors(&monitorCnt);
+
+	//m_Window.SetMonitor(monitors[1]);
+
+	//m_Window.CenterWindow();
+
+	while (!glfwWindowShouldClose(m_Window.GetWindow()))
 	{
-		glfwSwapBuffers(m_Window.getWindow());
+		glfwSwapBuffers(m_Window.GetWindow());
 		glfwPollEvents();
 	}
 	glfwTerminate();

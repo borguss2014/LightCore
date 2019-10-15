@@ -19,14 +19,24 @@ class Window
 public:
 	Window(const WindowProps& properties);
 
-	void initAPIContext();
-	void createWindow();
+	void InitAPIContext();
+	void CreateWindow();
 
-	GLFWwindow* getWindow() const;
+	GLFWmonitor** GetAvailableMonitors(int32_t* count) const;
+
+	GLFWwindow* GetWindow() const;
+
+	void SetFullScreen();
+
+	void SetMonitor(GLFWmonitor* monitor);
+
+	void CenterWindow();
 
 	~Window();
 private:
-	WindowProps m_Properties;
-	GLFWwindow* m_Window;
+	WindowProps		m_Properties;
+	GLFWwindow*		m_Window;
+
+	GLFWmonitor*	m_Monitor;
 };
 
