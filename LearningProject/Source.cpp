@@ -67,7 +67,7 @@ int main()
 
 	//m_Window.SetMonitor(monitors[1]);
 
-	//m_Window.CenterWindow();
+	m_Window.CenterWindow();
 
 	while (!glfwWindowShouldClose(m_Window.GetWindow()))
 	{

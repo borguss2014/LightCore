@@ -33,7 +33,14 @@ void Window::InitAPIContext()
 
 void Window::CreateWindow()
 {
-	m_Window = glfwCreateWindow(m_Properties.width, m_Properties.height, m_Properties.title.c_str(), nullptr, nullptr);
+	GLFWmonitor* monitor = nullptr;
+
+	if (m_Properties.fullscreen)
+	{
+		monitor = m_Monitor;
+	}
+
+	m_Window = glfwCreateWindow(m_Properties.width, m_Properties.height, m_Properties.title.c_str(), monitor, nullptr);
 
 	if (m_Window == nullptr)
 	{
@@ -68,6 +75,12 @@ void Window::SetMonitor(GLFWmonitor* monitor)
 
 void Window::CenterWindow()
 {
+	if (m_Properties.fullscreen)
+	{
+		std::cout << "Warning: cannot center a fullscreen window!" << std::endl;
+		return;
+	}
+
 	const GLFWvidmode* mode = glfwGetVideoMode(m_Monitor);
 
 	uint32_t monitorWidth = mode->width;
