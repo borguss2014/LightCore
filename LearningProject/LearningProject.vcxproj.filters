@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{03b2ceb7-2f11-48b5-a792-cbe93eecab45}</UniqueIdentifier>
     </Filter>
@@ -22,6 +18,12 @@
     <Filter Include="Platform\Window">
       <UniqueIdentifier>{358c0c8a-d7e0-4d14-8aa4-8fe0c55a1a63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{3e0b5898-e630-4dd0-afaf-7da6e9608a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{11827fc3-009f-40aa-beba-923cf1969083}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -30,7 +32,7 @@
     <ClCompile Include="C:\Users\Root\Desktop\glad\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="Platform\Windows\Window.cpp">
       <Filter>Platform\Window</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,22 +46,39 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="Platform\Windows\Window.h">
       <Filter>Platform\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.frag">
+    <None Include="Shaders\lightShader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shader.vert">
+    <None Include="Shaders\lightShader.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="lightShader.frag">
+    <None Include="Shaders\shader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="lightShader.vert">
+    <None Include="Shaders\shader.vert">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\wall.jpg">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\container.jpg">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\container2.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\container2_specular.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\matrix.jpg">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

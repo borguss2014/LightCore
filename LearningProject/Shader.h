@@ -1,5 +1,4 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <glad/glad.h>
 
@@ -70,7 +69,7 @@ public:
 	}
 	// activate the shader
 	// ------------------------------------------------------------------------
-	void use()
+	void Bind()
 	{
 		glUseProgram(ID);
 	}
@@ -118,4 +117,3 @@ private:
 		}
 	}
 };
-#endif

@@ -15,11 +15,10 @@
 
 #include "Camera.h"
 
-#include "Window.h"
+#include "Platform/Windows/Window.h"
 
 GLuint loadTexture(const char* path);
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 void processInput(GLFWwindow* window);
@@ -58,16 +57,19 @@ int main()
 	window_properties.width = 1920;
 	window_properties.height = 1080;
 	window_properties.fullscreen = false;
+	window_properties.vsync = false;
 
 	Window m_Window(window_properties);
 	m_Window.CreateWindow();
 
+	m_Window.CenterWindow();
+
 	int32_t monitorCnt = 0;
 	GLFWmonitor** monitors = m_Window.GetAvailableMonitors(&monitorCnt);
 
-	//m_Window.SetMonitor(monitors[1]);
+	//m_Window.SetMonitor(monitors[0]);
 
-	m_Window.CenterWindow();
+	std::cout << "Selected monitor: " << m_Window.GetMonitorName(m_Window.GetMonitor()) << std::endl;
 
 	while (!glfwWindowShouldClose(m_Window.GetWindow()))
 	{
@@ -75,13 +77,6 @@ int main()
 		glfwPollEvents();
 	}
 	glfwTerminate();
-
-	//GLFWwindow* window = m_Window.getWindow();
-
-	//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-	////VSync
-	////glfwSwapInterval(0);
 
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//glfwSetCursorPosCallback(window, mouse_callback);
@@ -522,15 +517,6 @@ void processInput(GLFWwindow* window)
 	{
 		glfwSwapInterval(1);
 	}
-}
-
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	// make sure the viewport matches the new window dimensions; note that width and 
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
