@@ -1,10 +1,14 @@
 #pragma once
 
+#include <memory>
+
 #include <cstdint>
 #include <string>
 
 #include <GLFW/glfw3.h>
 #include <functional>
+
+#include "../../LightCore/Renderer/GraphicsContext.h"
 
 struct WindowProps
 {
@@ -13,6 +17,7 @@ struct WindowProps
 	std::string title;
 	bool		fullscreen;
 	bool		vsync;
+	bool		center;
 };
 
 class Window
@@ -21,21 +26,16 @@ class Window
 public:
 	Window(const WindowProps& properties);
 
-	void InitAPIContext();
 	void CreateWindow();
 
 	GLFWmonitor** GetAvailableMonitors(int32_t* count) const;
-
 	GLFWmonitor* GetMonitor() const;
-
 	GLFWwindow* GetWindow() const;
 
 	bool IsVSync() const;
 
 	void SetVSync(bool state);
-
 	void SetFullScreen();
-
 	void SetMonitor(GLFWmonitor* monitor);
 
 	std::string GetMonitorName(GLFWmonitor* monitor) const;
@@ -52,4 +52,6 @@ private:
 	GLFWwindow*		m_Window;
 
 	GLFWmonitor*	m_Monitor;
+
+	std::unique_ptr<GraphicsContext> m_Context;
 };

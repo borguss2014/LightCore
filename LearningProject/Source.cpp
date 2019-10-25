@@ -1,51 +1,36 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include "Shader.h"
-
 #include <iostream>
-#include <chrono>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "Camera.h"
 
 #include "Platform/Windows/Window.h"
 
-GLuint loadTexture(const char* path);
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-
-void processInput(GLFWwindow* window);
+//GLuint loadTexture(const char* path);
+//
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+//
+//void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 1920;
-const unsigned int SCR_HEIGHT = 1440;
-
-std::chrono::duration<float> delta;
-
-
-float lastX = SCR_WIDTH / 2;
-float lastY = SCR_HEIGHT / 2;
-
-
-bool firstMouse = true;
-
-
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-
-//glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-
-glm::vec3 cameraFront;
-
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+//const unsigned int SCR_WIDTH = 1920;
+//const unsigned int SCR_HEIGHT = 1440;
+//
+//std::chrono::duration<float> delta;
+//
+//
+//float lastX = SCR_WIDTH / 2;
+//float lastY = SCR_HEIGHT / 2;
+//
+//
+//bool firstMouse = true;
+//
+//
+//glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+//
+//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+//
+////glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+//
+//glm::vec3 cameraFront;
+//
+//Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 int main()
 {
@@ -58,16 +43,11 @@ int main()
 	window_properties.height = 1080;
 	window_properties.fullscreen = false;
 	window_properties.vsync = false;
+	window_properties.center = true;
 
 	Window m_Window(window_properties);
-	m_Window.CreateWindow();
-
-	m_Window.CenterWindow();
 
 	int32_t monitorCnt = 0;
-	GLFWmonitor** monitors = m_Window.GetAvailableMonitors(&monitorCnt);
-
-	//m_Window.SetMonitor(monitors[0]);
 
 	std::cout << "Selected monitor: " << m_Window.GetMonitorName(m_Window.GetMonitor()) << std::endl;
 
@@ -460,129 +440,129 @@ int main()
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 // ---------------------------------------------------------------------------------------------------------
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-		return;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		camera.ProcessKeyboard(FORWARD, delta.count());
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		camera.ProcessKeyboard(BACKWARD, delta.count());
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		camera.ProcessKeyboard(RIGHT, delta.count());
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		camera.ProcessKeyboard(LEFT, delta.count());
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-	{
-		camera.setSpeed(5.0f);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
-	{
-		camera.setSpeed(2.0f);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
-	{
-		glfwSwapInterval(0);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_RELEASE)
-	{
-		glfwSwapInterval(1);
-	}
-}
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-	if (firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
-
-	float xOffset = xpos - lastX;
-	float yOffset = lastY - ypos;
-
-	lastX = xpos;
-	lastY = ypos;
-
-	camera.ProcessMouse(xOffset, yOffset);
-}
-
-GLuint loadTexture(const char* path)
-{
-	GLuint texture;
-
-	glGenTextures(1, &texture);
-
-	int width, height, nrChannels;
-	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
-
-	GLenum format;
-
-	if (data)
-	{
-		if (nrChannels == 1)
-		{
-			format = GL_RED;
-		}
-		else if (nrChannels == 3)
-		{
-			format = GL_RGB;
-		}
-		else if (nrChannels == 4)
-		{
-			format = GL_RGBA;
-		}
-
-		glBindTexture(GL_TEXTURE_2D, texture);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-
-	stbi_image_free(data);
-
-	return texture;
-}
+//void processInput(GLFWwindow* window)
+//{
+//	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+//	{
+//		glfwSetWindowShouldClose(window, true);
+//		return;
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+//	{
+//		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
+//	{
+//		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+//	{
+//		camera.ProcessKeyboard(FORWARD, delta.count());
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+//	{
+//		camera.ProcessKeyboard(BACKWARD, delta.count());
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+//	{
+//		camera.ProcessKeyboard(RIGHT, delta.count());
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+//	{
+//		camera.ProcessKeyboard(LEFT, delta.count());
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+//	{
+//		camera.setSpeed(5.0f);
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+//	{
+//		camera.setSpeed(2.0f);
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+//	{
+//		glfwSwapInterval(0);
+//	}
+//
+//	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_RELEASE)
+//	{
+//		glfwSwapInterval(1);
+//	}
+//}
+//
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+//{
+//	if (firstMouse)
+//	{
+//		lastX = xpos;
+//		lastY = ypos;
+//		firstMouse = false;
+//	}
+//
+//	float xOffset = xpos - lastX;
+//	float yOffset = lastY - ypos;
+//
+//	lastX = xpos;
+//	lastY = ypos;
+//
+//	camera.ProcessMouse(xOffset, yOffset);
+//}
+//
+//GLuint loadTexture(const char* path)
+//{
+//	GLuint texture;
+//
+//	glGenTextures(1, &texture);
+//
+//	int width, height, nrChannels;
+//	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+//
+//	GLenum format;
+//
+//	if (data)
+//	{
+//		if (nrChannels == 1)
+//		{
+//			format = GL_RED;
+//		}
+//		else if (nrChannels == 3)
+//		{
+//			format = GL_RGB;
+//		}
+//		else if (nrChannels == 4)
+//		{
+//			format = GL_RGBA;
+//		}
+//
+//		glBindTexture(GL_TEXTURE_2D, texture);
+//
+//		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+//
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//
+//		glGenerateMipmap(GL_TEXTURE_2D);
+//
+//		glBindTexture(GL_TEXTURE_2D, 0);
+//	}
+//	else
+//	{
+//		std::cout << "Failed to load texture" << std::endl;
+//	}
+//
+//	stbi_image_free(data);
+//
+//	return texture;
+//}

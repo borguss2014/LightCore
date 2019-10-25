@@ -2,17 +2,17 @@
 
 #include <iostream>
 
+#include "../../Platform/OpenGL/OpenGLContext.h"
+
 
 Window::Window(const WindowProps& properties)
 {
 	m_Properties = properties;
 
-	InitAPIContext();
-
-	m_Monitor = glfwGetPrimaryMonitor();
+	CreateWindow();
 }
 
-void Window::InitAPIContext()
+void Window::CreateWindow()
 {
 	if (!glfwInit())
 	{
@@ -20,17 +20,17 @@ void Window::InitAPIContext()
 		return;
 	}
 
+	// Limited to OpenGL 4.1 because of Mac OS
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	#ifdef __APPLE__
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Fix compilation on OS X
-	#endif
-}
+#ifdef __APPLE__
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Fix compilation on OS X
+#endif
 
-void Window::CreateWindow()
-{
+	m_Monitor = glfwGetPrimaryMonitor();
+
 	GLFWmonitor* monitor = nullptr;
 
 	if (m_Properties.fullscreen)
@@ -46,17 +46,23 @@ void Window::CreateWindow()
 		return;
 	}
 
-	SetVSync(m_Properties.vsync);
+	m_Context = std::make_unique<OpenGLContext>(m_Window);
+	m_Context->Init();
 
 	glfwSetWindowUserPointer(m_Window, this);
 
-	glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
+	SetVSync(m_Properties.vsync);
 
-	glfwMakeContextCurrent(m_Window);
+	glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
 
 	if (m_Properties.fullscreen)
 	{
 		SetFullScreen();
+	}
+
+	if (m_Properties.center)
+	{
+		CenterWindow();
 	}
 }
 
