@@ -107,6 +107,12 @@ void Window::CenterWindow()
 	glfwSetWindowMonitor(m_Window, nullptr, winX, winY, m_Properties.width, m_Properties.height, 60);
 }
 
+void Window::OnUpdate()
+{
+	glfwPollEvents();
+	m_Context->SwapBuffers();
+}
+
 std::string Window::GetMonitorName(GLFWmonitor* monitor) const
 {
 	return glfwGetMonitorName(monitor);

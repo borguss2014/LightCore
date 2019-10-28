@@ -17,14 +17,14 @@ OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 
 void OpenGLContext::Init()
 {
+	glfwMakeContextCurrent(m_WindowHandle);
+
 	// Load all OpenGL function pointers
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return;
 	}
-
-	glfwMakeContextCurrent(m_WindowHandle);
 }
 
 void OpenGLContext::SwapBuffers()

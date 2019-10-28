@@ -42,6 +42,8 @@ public:
 
 	void CenterWindow();
 
+	void OnUpdate();
+
 	~Window();
 
 private: 

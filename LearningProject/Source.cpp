@@ -48,27 +48,20 @@ int main()
 	Window m_Window(window_properties);
 
 	int32_t monitorCnt = 0;
-
 	std::cout << "Selected monitor: " << m_Window.GetMonitorName(m_Window.GetMonitor()) << std::endl;
 
 	while (!glfwWindowShouldClose(m_Window.GetWindow()))
 	{
-		glfwSwapBuffers(m_Window.GetWindow());
-		glfwPollEvents();
+		glClearColor(0.0f, 0.2f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		m_Window.OnUpdate();
 	}
+
 	glfwTerminate();
 
 	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//glfwSetCursorPosCallback(window, mouse_callback);
-
-	//// glad: load all OpenGL function pointers
-	//// ---------------------------------------
-	//if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	//{
-	//	std::cout << "Failed to initialize GLAD" << std::endl;
-	//	return -1;
-	//}
-
 
 	//// set up vertex data (and buffer(s)) and configure vertex attributes
 	//// ------------------------------------------------------------------
