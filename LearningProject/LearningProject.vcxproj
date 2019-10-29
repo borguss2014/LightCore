@@ -82,13 +82,16 @@
     <ClCompile Include="C:\Users\Root\Desktop\glad\src\glad.c" />
     <ClCompile Include="Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Platform\Windows\Window.cpp" />
+    <ClCompile Include="Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="LightCore\Core\Input.h" />
     <ClInclude Include="LightCore\Renderer\GraphicsContext.h" />
     <ClInclude Include="OpenGLContext.h" />
     <ClInclude Include="Platform\Windows\Window.h" />
+    <ClInclude Include="Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

@@ -55,6 +55,8 @@ void Window::CreateWindow()
 
 	glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
 
+	glfwSetKeyCallback(m_Window, key_callback);
+
 	if (m_Properties.fullscreen)
 	{
 		SetFullScreen();
@@ -109,7 +111,7 @@ void Window::CenterWindow()
 
 void Window::OnUpdate()
 {
-	glfwPollEvents();
+	//glfwPollEvents();
 	m_Context->SwapBuffers();
 }
 
@@ -144,4 +146,9 @@ Window::~Window()
 void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+}
+
+void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	std::cout << "mods " << glfwGetKeyName(mods, 0) << std::endl;
 }

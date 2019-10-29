@@ -2,41 +2,21 @@
 
 #include "Platform/Windows/Window.h"
 
-//GLuint loadTexture(const char* path);
-//
-//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-//
-//void processInput(GLFWwindow* window);
-
-// settings
-//const unsigned int SCR_WIDTH = 1920;
-//const unsigned int SCR_HEIGHT = 1440;
-//
 //std::chrono::duration<float> delta;
-//
 //
 //float lastX = SCR_WIDTH / 2;
 //float lastY = SCR_HEIGHT / 2;
 //
-//
 //bool firstMouse = true;
 //
-//
 //glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-//
 //glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-//
 ////glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-//
 //glm::vec3 cameraFront;
-//
 //Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 int main()
 {
-	// glfw: initialize and configure
-	// ------------------------------
-
 	WindowProps window_properties;
 	window_properties.title = "LightCore PRE-ALPHA";
 	window_properties.width = 1920;
