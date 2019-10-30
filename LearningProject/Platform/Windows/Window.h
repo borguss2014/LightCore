@@ -8,7 +8,8 @@
 #include <GLFW/glfw3.h>
 #include <functional>
 
-#include "../../LightCore/Renderer/GraphicsContext.h"
+#include "../../Platform/OpenGL/OpenGLContext.h"
+
 
 struct WindowProps
 {

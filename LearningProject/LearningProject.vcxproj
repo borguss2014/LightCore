@@ -89,7 +89,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="LightCore\Core\Input.h" />
     <ClInclude Include="LightCore\Renderer\GraphicsContext.h" />
-    <ClInclude Include="OpenGLContext.h" />
+    <ClInclude Include="Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Platform\Windows\Window.h" />
     <ClInclude Include="Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Shader.h" />

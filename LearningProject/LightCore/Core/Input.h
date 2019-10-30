@@ -2,8 +2,6 @@
 class Input
 {
 public: 
-	virtual ~Input() = 0;
-
 	virtual void PollEvents() = 0;
 
 	virtual void SetKeyPressed(int key) = 0;

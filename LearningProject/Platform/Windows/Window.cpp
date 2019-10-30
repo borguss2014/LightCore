@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-#include "../../Platform/OpenGL/OpenGLContext.h"
-
 
 Window::Window(const WindowProps& properties)
 {
@@ -111,7 +109,7 @@ void Window::CenterWindow()
 
 void Window::OnUpdate()
 {
-	//glfwPollEvents();
+	glfwPollEvents();
 	m_Context->SwapBuffers();
 }
 
@@ -150,5 +148,5 @@ void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height
 
 void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	std::cout << "mods " << glfwGetKeyName(mods, 0) << std::endl;
+
 }
