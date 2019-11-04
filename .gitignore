@@ -341,3 +341,6 @@ healthchecksdb
 
 # Xcode project file
 .xcodeproj
+
+bin/ 
+bin-int/

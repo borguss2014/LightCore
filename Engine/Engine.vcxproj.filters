@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{03b2ceb7-2f11-48b5-a792-cbe93eecab45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{b74bb9c3-4b24-4aef-b7af-095441897b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{3e0b5898-e630-4dd0-afaf-7da6e9608a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{11827fc3-009f-40aa-beba-923cf1969083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{358c0c8a-d7e0-4d14-8aa4-8fe0c55a1a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LightCore">
+      <UniqueIdentifier>{4b747358-9860-4fcc-b436-63b152dd8014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LightCore\Core">
+      <UniqueIdentifier>{4e8d28c2-39d3-44c0-b9aa-d12339e511a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LightCore\Renderer">
+      <UniqueIdentifier>{9670285e-f472-40e3-b09e-3d7f5d6b1e10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\Window.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightCore\Core\Application.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\Window.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Core\Input.h">
+      <Filter>LightCore\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h">
+      <Filter>LightCore\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\Shader.h" />
+    <ClInclude Include="src\Platform\OpenGL\Camera.h" />
+    <ClInclude Include="src\LightCore\Core\Application.h" />
+    <ClInclude Include="src\LightCore\Core\Core.h" />
+    <ClInclude Include="src\LightCore.h" />
+    <ClInclude Include="src\LightCore\Core\EntryPoint.h" />
+  </ItemGroup>
+</Project>
