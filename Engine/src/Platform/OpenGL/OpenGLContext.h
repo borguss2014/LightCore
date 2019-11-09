@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../LightCore/Renderer/GraphicsContext.h"
+#include "LightCore/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 

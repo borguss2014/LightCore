@@ -1,6 +1,6 @@
 #include "WindowsInput.h"
 
-#include <glfw/include/GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
 WindowsInput::WindowsInput()
 	: m_Keys{0}

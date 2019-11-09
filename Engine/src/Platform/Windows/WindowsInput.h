@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../LightCore/Core/Input.h"
+#include "LightCore/Core/Input.h"
 
 class WindowsInput : public Input
 {

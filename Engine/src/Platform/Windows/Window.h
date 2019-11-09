@@ -1,16 +1,15 @@
 #pragma once
 
 #include <memory>
-
 #include <cstdint>
 #include <string>
-
-#include <glfw/include/GLFW/glfw3.h>
-
 #include <functional>
 
+#include <glad/glad.h>
 
-#include "../../Platform/OpenGL/OpenGLContext.h"
+#include <GLFW/glfw3.h>
+
+#include "Platform/OpenGL/OpenGLContext.h"
 
 
 struct WindowProps
