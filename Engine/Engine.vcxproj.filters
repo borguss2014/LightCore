@@ -63,6 +63,9 @@
     <ClInclude Include="src\LightCore\Core\Input.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\LightCore\Core\Log.h">
+      <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h">
       <Filter>src\LightCore\Renderer</Filter>
     </ClInclude>
@@ -1188,9 +1191,19 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\LightCore\Core\GenericWindow.h">
+      <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Events\Event.h" />
+    <ClInclude Include="src\LightCore\Events\EventHandler.h" />
+    <ClInclude Include="src\LightCore\Events\EventSystem.h" />
+    <ClInclude Include="src\LightCore\Events\EventListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LightCore\Core\Application.cpp">
+      <Filter>src\LightCore\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightCore\Core\Log.cpp">
       <Filter>src\LightCore\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
@@ -1202,5 +1215,6 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightCore\Events\EventSystem.cpp" />
   </ItemGroup>
 </Project>

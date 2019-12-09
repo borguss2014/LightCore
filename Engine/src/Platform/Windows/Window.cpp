@@ -2,162 +2,159 @@
 
 #include <iostream>
 
+#include "Platform/OpenGL/OpenGLContext.h"
 
-Window::Window(const WindowProps& properties)
+#include <glad/glad.h>
+#include <GL/GL.h>
+
+#include <LightCore/Core/Log.h>
+
+namespace LightCore
 {
-	m_Properties = properties;
-
-	CreateWindow();
-}
-
-void Window::CreateWindow()
-{
-	if (!glfwInit())
+	Window::Window(const WindowProps& properties)
 	{
-		std::cout << "Failed to initialize GLFW!" << std::endl;
-		return;
-	}
+		m_Properties = properties;
 
-	// Limited to OpenGL 4.1 because of Mac OS
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		int success = glfwInit();
 
-//#ifdef __APPLE__
-//	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Fix compilation on OS X
-//#endif
+		LC_ASSERT(success, "Failed to initialize GLFW");
 
-	m_Monitor = glfwGetPrimaryMonitor();
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWmonitor* monitor = nullptr;
+		m_Monitor = glfwGetPrimaryMonitor();
 
-	if (m_Properties.fullscreen)
-	{
-		monitor = m_Monitor;
-	}
+		GLFWmonitor* monitor = nullptr;
 
-	m_Window = glfwCreateWindow(m_Properties.width, m_Properties.height, m_Properties.title.c_str(), monitor, nullptr);
+		if (m_Properties.Fullscreen)
+		{
+			monitor = m_Monitor;
+		}
 
-	if (m_Window == nullptr)
-	{
-		std::cout << "Failed to create GLFW window!" << std::endl;
-		return;
-	}
+		m_Window = glfwCreateWindow(m_Properties.Width, m_Properties.Height, m_Properties.Title.c_str(), monitor, nullptr);
 
-	m_Context = std::make_unique<OpenGLContext>(m_Window);
-	m_Context->Init();
+		LC_ASSERT(m_Window != nullptr, "Failed to create GLFW window");
 
-	glfwSetWindowUserPointer(m_Window, this);
+		m_Context = std::make_unique<OpenGLContext>(m_Window);
+		m_Context->Init();
 
-	SetVSync(m_Properties.vsync);
+		glfwSetWindowUserPointer(m_Window, this);
 
-	glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
+		SetVSync(m_Properties.Vsync);
 
-	glfwSetKeyCallback(m_Window, key_callback);
+		glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
 
-	if (m_Properties.fullscreen)
-	{
-		SetFullScreen();
-	}
+		glfwSetKeyCallback(m_Window, key_callback);
 
-	if (m_Properties.center)
-	{
+		if (m_Properties.Fullscreen)
+		{
+			SetFullScreen();
+		}
+
 		CenterWindow();
+
+		//SetInputMode(GLFW_CURSOR_DISABLED);
+
+		std::string s("Window created");
+		LC_CORE_INFO(s);
 	}
 
-	SetInputMode(GLFW_CURSOR_DISABLED);
-}
-
-GLFWmonitor** Window::GetAvailableMonitors(int32_t* count) const
-{
-	return glfwGetMonitors(count);
-}
-
-GLFWmonitor* Window::GetMonitor() const
-{
-	return m_Monitor;
-}
-
-void Window::SetFullScreen()
-{
-	glfwSetWindowMonitor(m_Window, m_Monitor, 0, 0, m_Properties.width, m_Properties.height, 60);
-}
-
-void Window::SetMonitor(GLFWmonitor* monitor)
-{
-	m_Monitor = monitor;
-
-	glfwSetWindowMonitor(m_Window, monitor, 0, 0, m_Properties.width, m_Properties.height, 60);
-}
-
-void Window::SetInputMode(int mode)
-{
-	glfwSetInputMode(m_Window, GLFW_CURSOR, mode);
-}
-
-void Window::CenterWindow()
-{
-	if (m_Properties.fullscreen)
+	Window::~Window()
 	{
-		std::cout << "Warning: cannot center a fullscreen window!" << std::endl;
-		return;
+		glfwTerminate();
 	}
 
-	const GLFWvidmode* mode = glfwGetVideoMode(m_Monitor);
-
-	uint32_t monitorWidth = mode->width;
-	uint32_t monitorHeight = mode->height;
-
-	uint32_t winX = (monitorWidth / 2) - (m_Properties.width / 2);
-	uint32_t winY = (monitorHeight / 2) - (m_Properties.height / 2);
-
-	glfwSetWindowMonitor(m_Window, nullptr, winX, winY, m_Properties.width, m_Properties.height, 60);
-}
-
-void Window::OnUpdate()
-{
-	glfwPollEvents();
-	m_Context->SwapBuffers();
-}
-
-std::string Window::GetMonitorName(GLFWmonitor* monitor) const
-{
-	return glfwGetMonitorName(monitor);
-}
-
-GLFWwindow* Window::GetWindow() const
-{
-	return m_Window;
-}
-
-bool Window::IsVSync() const
-{
-	return m_Properties.vsync;
-}
-
-void Window::SetVSync(bool state)
-{
-	glfwSwapInterval(state);
-
-	m_Properties.vsync = state;
-}
-
-Window::~Window()
-{
-	glfwTerminate();
-}
-
-// Glfw: whenever the window size changed (by OS or user resize) this callback function executes
-void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
-
-void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	GLFWmonitor** Window::GetAvailableMonitors(int32_t* count) const
 	{
-		std::cout << "Pressed ESC... EXITING" << std::endl;
-		glfwSetWindowShouldClose(window, true);
+		return glfwGetMonitors(count);
+	}
+
+	GLFWmonitor* Window::GetMonitor() const
+	{
+		return m_Monitor;
+	}
+
+	bool Window::GetWindowShouldClose() const
+	{
+		return glfwWindowShouldClose(m_Window);
+	}
+
+	void Window::SetFullScreen()
+	{
+		glfwSetWindowMonitor(m_Window, m_Monitor, 0, 0, m_Properties.Width, m_Properties.Height, 60);
+	}
+
+	void Window::SetMonitor(GLFWmonitor* monitor)
+	{
+		m_Monitor = monitor;
+
+		glfwSetWindowMonitor(m_Window, monitor, 0, 0, m_Properties.Width, m_Properties.Height, 60);
+	}
+
+	void Window::SetInputMode(int mode)
+	{
+		glfwSetInputMode(m_Window, GLFW_CURSOR, mode);
+	}
+
+	void Window::CenterWindow()
+	{
+		if (m_Properties.Fullscreen)
+		{
+			LC_WARN("Warning: cannot center a fullscreen window!");
+			return;
+		}
+
+		const GLFWvidmode* mode = glfwGetVideoMode(m_Monitor);
+
+		uint32_t monitorWidth = mode->width;
+		uint32_t monitorHeight = mode->height;
+
+		uint32_t winX = (monitorWidth / 2) - (m_Properties.Width / 2);
+		uint32_t winY = (monitorHeight / 2) - (m_Properties.Height / 2);
+
+		glfwSetWindowMonitor(m_Window, nullptr, winX, winY, m_Properties.Width, m_Properties.Height, 60);
+	}
+
+	void Window::OnUpdate()
+	{
+		glfwPollEvents();
+		m_Context->SwapBuffers();
+	}
+
+	void Window::SetEventCallback(std::function<void(Event& e)> fn)
+	{
+		LC_TRACE("EVENT SET");
+	}
+
+	std::string Window::GetMonitorName(GLFWmonitor* monitor) const
+	{
+		return glfwGetMonitorName(monitor);
+	}
+
+	void Window::SetVSync(bool enabled)
+	{
+		glfwSwapInterval(enabled);
+
+		m_Properties.Vsync = enabled;
+	}
+
+	// Glfw: whenever the window size changed (by OS or user resize) this callback function executes
+	void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
+	void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	{
+		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		{
+			std::cout << "Pressed ESC... EXITING" << std::endl;
+			glfwSetWindowShouldClose(window, true);
+		}
+	}
+	std::unique_ptr<Window> Window::Create(const WindowProps& props)
+	{
+		return std::make_unique<Window>(props);
 	}
 }

@@ -5,61 +5,83 @@
 #include <string>
 #include <functional>
 
-#include <glad/glad.h>
+#include "LightCore/Core/GenericWindow.h"
+
+#include "LightCore/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include <LightCore\Events\Event.h>
 
-
-struct WindowProps
+namespace LightCore
 {
-	uint32_t	width;
-	uint32_t	height;
-	std::string title;
-	bool		fullscreen;
-	bool		vsync;
-	bool		center;
-};
+	struct WindowProps
+	{
+		std::string		Title;
+		unsigned int	Width;
+		unsigned int	Height;
 
-class Window
-{
+		bool			Fullscreen;
+		bool			Vsync;
 
-public:
-	Window(const WindowProps& properties);
+		WindowProps(const std::string& title = "LightCore Engine",
+			unsigned int width = 800,
+			unsigned int height = 600,
+			bool fullscreen = false,
+			bool vsync = false)
+			: Title(title), Width(width), Height(height),
+				Fullscreen(fullscreen), Vsync(vsync)
+		{
+		}
+	};
 
-	void CreateWindow();
+	class Window : public GenericWindow
+	{
 
-	GLFWmonitor** GetAvailableMonitors(int32_t* count) const;
-	GLFWmonitor* GetMonitor() const;
-	GLFWwindow* GetWindow() const;
+	public:
+		Window(const WindowProps& properties);
+		~Window();
 
-	bool IsVSync() const;
+		GLFWmonitor** GetAvailableMonitors(int32_t* count) const;
+		GLFWmonitor* GetMonitor() const;
 
-	void SetVSync(bool state);
-	void SetFullScreen();
-	void SetMonitor(GLFWmonitor* monitor);
+		inline void* GetNativeWindow() const override { return m_Window; };
 
-	// TODO: Move to Mouse input class
-	void SetInputMode(int mode);
+		bool GetWindowShouldClose() const;
 
-	std::string GetMonitorName(GLFWmonitor* monitor) const;
+		inline unsigned int GetWidth() const override { return m_Properties.Width; };
+		inline unsigned int GetHeight() const override { return m_Properties.Height; };
 
-	void CenterWindow();
+		void SetVSync(bool enabled) override;
+		inline bool IsVSync() const override { return m_Properties.Vsync; };
 
-	void OnUpdate();
+		void SetFullScreen();
+		void SetMonitor(GLFWmonitor* monitor);
 
-	~Window();
+		// TODO: Move to Mouse input class
+		void SetInputMode(int mode);
 
-private: 
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+		std::string GetMonitorName(GLFWmonitor* monitor) const;
 
-private:
-	WindowProps		m_Properties;
-	GLFWwindow*		m_Window;
+		void CenterWindow();
 
-	GLFWmonitor*	m_Monitor;
+		void OnUpdate() override;
 
-	std::unique_ptr<GraphicsContext> m_Context;
-};
+		void SetEventCallback(std::function<void(Event& e)> fn) override;
+
+	private:
+		WindowProps		m_Properties;
+		GLFWwindow* m_Window;
+
+		GLFWmonitor* m_Monitor;
+
+		std::unique_ptr<GraphicsContext> m_Context;
+
+	public:
+		static std::unique_ptr<Window> Create(const WindowProps& props);
+
+	private:
+		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+		static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	};
+}

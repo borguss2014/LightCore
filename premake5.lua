@@ -16,10 +16,15 @@ output_dir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
-IncludeDir["glfw"] = "Engine/vendor/glfw/include"
-IncludeDir["glad"] = "Engine/vendor/glad/include"
+IncludeDir["GLFW"] = "Engine/vendor/GLFW/include"
+IncludeDir["Glad"] = "Engine/vendor/Glad/include"
 IncludeDir["glm"] = "Engine/vendor/glm"
 IncludeDir["stb_image"] = "Engine/vendor/stb_image"
+
+group "Dependencies"
+    include "Engine/vendor/GLFW"
+    include "Engine/vendor/Glad"
+group ""
 
 project "Engine"
 	kind "StaticLib"
@@ -43,15 +48,15 @@ project "Engine"
 	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.glfw}",
-		"%{IncludeDir.glad}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}"
 	}
 
 	links {
-		"glfw",
-		"glad",
+        "GLFW",
+        "Glad",
 		"opengl32.lib"
 	}
 
@@ -64,34 +69,20 @@ project "Engine"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. output_dir .. "/Sandbox")
-		}
-
-		filter "configurations:Debug"
-		defines "LC_DEBUG"
-		symbols "On"
-
-		filter "configurations:Release"
-		defines "LC_RELEASE"
-		optimize "On"
-
-		filter "configurations:Dist"
-		defines "LC_DIST"
-		optimize "On"
-
-
 	filter "configurations:Debug"
-	defines "LC_DEBUG"
-	symbols "On"
+		defines "LC_DEBUG"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
-	defines "LC_RELEASE"
-	optimize "On"
+		defines "LC_RELEASE"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
-	defines "LC_DIST"
-	optimize "On"
+		defines "LC_DIST"
+		runtime "Release"
+		optimize "on"
 
 
 project "Sandbox"
@@ -121,8 +112,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines {
@@ -131,12 +120,15 @@ project "Sandbox"
 
 		filter "configurations:Debug"
 		defines "LC_DEBUG"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 
 		filter "configurations:Release"
 		defines "LC_RELEASE"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 
 		filter "configurations:Dist"
 		defines "LC_DIST"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
