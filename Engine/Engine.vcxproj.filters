@@ -10,6 +10,9 @@
     <Filter Include="src\LightCore\Core">
       <UniqueIdentifier>{B52D5267-A111-13BD-0A72-0D10F674FD3E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\LightCore\Events">
+      <UniqueIdentifier>{8180B689-6D0F-4053-162E-544E029C50F9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\LightCore\Renderer">
       <UniqueIdentifier>{83B353C8-6FAD-7C1A-581A-132B44B3E286}</UniqueIdentifier>
     </Filter>
@@ -60,11 +63,23 @@
     <ClInclude Include="src\LightCore\Core\EntryPoint.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\LightCore\Core\GenericWindow.h">
+      <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\LightCore\Core\Input.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LightCore\Core\Log.h">
       <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Events\Event.h">
+      <Filter>src\LightCore\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Events\EventListener.h">
+      <Filter>src\LightCore\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Events\EventSystem.h">
+      <Filter>src\LightCore\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h">
       <Filter>src\LightCore\Renderer</Filter>
@@ -1191,12 +1206,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\LightCore\Core\GenericWindow.h">
-      <Filter>src\LightCore\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\LightCore\Events\Event.h" />
-    <ClInclude Include="src\LightCore\Events\EventSystem.h" />
-    <ClInclude Include="src\LightCore\Events\EventListener.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LightCore\Core\Application.cpp">
@@ -1204,6 +1213,9 @@
     </ClCompile>
     <ClCompile Include="src\LightCore\Core\Log.cpp">
       <Filter>src\LightCore\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightCore\Events\EventSystem.cpp">
+      <Filter>src\LightCore\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1214,6 +1226,5 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\LightCore\Events\EventSystem.cpp" />
   </ItemGroup>
 </Project>
