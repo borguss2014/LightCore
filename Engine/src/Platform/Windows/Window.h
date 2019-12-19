@@ -15,7 +15,7 @@
 
 namespace LightCore
 {
-	struct WindowProps
+	struct WindowProps 
 	{
 		std::string		Title;
 		unsigned int	Width;
