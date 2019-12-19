@@ -4,6 +4,8 @@
 
 #include "Platform/Windows/Window.h"
 
+#include "LightCore/Events/EventSystem.h"
+
 namespace LightCore 
 {
 	Application::Application()
@@ -15,7 +17,7 @@ namespace LightCore
 
 	void Application::OnUpdate()
 	{
-
+		EventSystem::ProcessEvents();
 	}
 
 	void Application::Run()

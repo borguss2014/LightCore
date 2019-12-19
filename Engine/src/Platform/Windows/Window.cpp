@@ -9,6 +9,8 @@
 
 #include <LightCore/Core/Log.h>
 
+#include <LightCore\Events\EventSystem.h>
+
 namespace LightCore
 {
 	Window::Window(const WindowProps& properties)
@@ -58,6 +60,8 @@ namespace LightCore
 
 		std::string s("Window created");
 		LC_CORE_INFO(s);
+
+		EventSystem::AttachListener(EventType::KeyPressed, std::bind(&Window::OnEvent, this, std::placeholders::_1));
 	}
 
 	Window::~Window()
@@ -149,10 +153,16 @@ namespace LightCore
 	{
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
-			std::cout << "Pressed ESC... EXITING" << std::endl;
-			glfwSetWindowShouldClose(window, true);
+			std::unique_ptr<InputEvent> keyDownEvt = std::make_unique<InputEvent>(EventType::KeyPressed);
+			EventSystem::QueueEvent(std::move(keyDownEvt));
 		}
 	}
+
+	void Window::OnEvent(std::unique_ptr<Event> evt)
+	{
+		LC_CORE_INFO("Escape pressed");
+	}
+
 	std::unique_ptr<Window> Window::Create(const WindowProps& props)
 	{
 		return std::make_unique<Window>(props);

@@ -25,8 +25,8 @@ namespace LightCore
 		bool			Vsync;
 
 		WindowProps(const std::string& title = "LightCore Engine",
-			unsigned int width = 800,
-			unsigned int height = 600,
+			unsigned int width = 1920,
+			unsigned int height = 1080,
 			bool fullscreen = false,
 			bool vsync = false)
 			: Title(title), Width(width), Height(height),
@@ -68,6 +68,8 @@ namespace LightCore
 		void OnUpdate() override;
 
 		void SetEventCallback(std::function<void(Event& e)> fn) override;
+
+		void OnEvent(std::unique_ptr<Event> evt);
 
 	private:
 		WindowProps		m_Properties;

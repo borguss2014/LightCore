@@ -1195,7 +1195,6 @@
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\LightCore\Events\Event.h" />
-    <ClInclude Include="src\LightCore\Events\EventHandler.h" />
     <ClInclude Include="src\LightCore\Events\EventSystem.h" />
     <ClInclude Include="src\LightCore\Events\EventListener.h" />
   </ItemGroup>

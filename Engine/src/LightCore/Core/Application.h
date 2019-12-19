@@ -5,9 +5,6 @@
 #include "Core.h"
 #include "GenericWindow.h"
 
-#include "../Events/Event.h"
-#include "../Events/EventHandler.h"
-
 namespace LightCore
 {
 	struct Application

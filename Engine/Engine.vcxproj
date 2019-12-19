@@ -151,7 +151,6 @@
     <ClInclude Include="src\LightCore\Core\Input.h" />
     <ClInclude Include="src\LightCore\Core\Log.h" />
     <ClInclude Include="src\LightCore\Events\Event.h" />
-    <ClInclude Include="src\LightCore\Events\EventHandler.h" />
     <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />

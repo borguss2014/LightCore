@@ -2,7 +2,7 @@
 
 namespace LightCore
 {
-	enum class EventType
+	enum struct EventType
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
@@ -16,5 +16,22 @@ namespace LightCore
 		virtual ~Event() = default;
 
 		virtual EventType GetType() = 0;
+	};
+
+	struct InputEvent : public Event
+	{
+		InputEvent(EventType type)
+			: m_EventType(type) {
+
+		}
+
+		~InputEvent() {}
+
+		virtual EventType GetType() override {
+			return m_EventType;
+		};
+
+	private:
+		EventType m_EventType;
 	};
 }
