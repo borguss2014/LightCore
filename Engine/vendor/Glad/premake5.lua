@@ -1,30 +1,3 @@
-project "Glad"
-    kind "StaticLib"
-    language "C"
-    staticruntime "on"
-    
-    targetdir ("bin/" .. output_dir .. "/%{prj.name}")
-    objdir ("bin-int/" .. output_dir .. "/%{prj.name}")
-
-    files
-    {
-        "include/glad/glad.h",
-        "include/KHR/khrplatform.h",
-        "src/glad.c"
-    }
-
-    includedirs
-    {
-        "include"
-    }
-    
-    filter "system:windows"
-        systemversion "latest"
-
-    filter "configurations:Debug"
-        runtime "Debug"
-        symbols "on"
-
-    filter "configurations:Release"
-        runtime "Release"
-        optimize "on"
+version https://git-lfs.github.com/spec/v1
+oid sha256:53a8351acf9952f30952a0b7240270f729f237739f7725da9b581a13d0392070
+size 608
