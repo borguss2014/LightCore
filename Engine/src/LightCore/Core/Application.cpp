@@ -24,6 +24,7 @@ namespace LightCore
 	{
 		LC_CORE_INFO("Entering update loop");
 
+
 		while (m_Running)
 		{
 			OnUpdate();
