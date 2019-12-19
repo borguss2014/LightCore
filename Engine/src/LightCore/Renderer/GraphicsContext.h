@@ -1,6 +1,6 @@
 #pragma once
 
-class __declspec(novtable) GraphicsContext
+struct __declspec(novtable) GraphicsContext
 {
 public:
 	virtual void Init() = 0;

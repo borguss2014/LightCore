@@ -4,7 +4,7 @@
 
 namespace LightCore
 {
-	class WindowsInput : public Input
+	struct WindowsInput : public Input
 	{
 	public:
 		WindowsInput();

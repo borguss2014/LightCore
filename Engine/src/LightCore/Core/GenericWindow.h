@@ -7,9 +7,9 @@
 
 namespace LightCore
 {
-	class Event;
+	struct Event;
 
-	class __declspec(novtable) GenericWindow
+	struct __declspec(novtable) GenericWindow
 	{
 	public:
 		virtual ~GenericWindow() = default;

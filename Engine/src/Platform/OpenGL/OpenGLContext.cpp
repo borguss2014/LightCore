@@ -3,17 +3,17 @@
 #include <iostream>
 
 #include <GLFW/glfw3.h>
+
 #include <glad/glad.h>
 #include <GL/GL.h>
+
+#include <LightCore/Core/Log.h>
 
 
 OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 	: m_WindowHandle(windowHandle)
 {
-	if (m_WindowHandle == nullptr)
-	{
-		std::cout << "Window pointer is null!" << std::endl;
-	}
+		LC_ASSERT(m_WindowHandle != nullptr, "Window pointer is null!");
 }
 
 void OpenGLContext::Init()
@@ -21,11 +21,7 @@ void OpenGLContext::Init()
 	glfwMakeContextCurrent(m_WindowHandle);
 
 	// Load all OpenGL function pointers
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return;
-	}
+	LC_ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
 }
 
 void OpenGLContext::SwapBuffers()

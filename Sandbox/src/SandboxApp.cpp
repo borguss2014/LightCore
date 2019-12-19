@@ -1,8 +1,7 @@
 #include <LightCore.h>
 
-class Sandbox : public LightCore::Application
+struct Sandbox : public LightCore::Application
 {
-public:
 	Sandbox()
 	{
 		

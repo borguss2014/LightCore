@@ -6,6 +6,11 @@
 
 #include "LightCore/Events/EventSystem.h"
 
+// Enable High Performance Graphics
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
+
 namespace LightCore 
 {
 	Application::Application()

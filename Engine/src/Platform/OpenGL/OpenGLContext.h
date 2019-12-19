@@ -4,7 +4,7 @@
 
 struct GLFWwindow;
 
-class OpenGLContext : public GraphicsContext
+struct OpenGLContext : public GraphicsContext
 {
 public:
 	OpenGLContext(GLFWwindow* windowHandle);

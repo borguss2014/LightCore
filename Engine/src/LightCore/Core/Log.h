@@ -7,7 +7,7 @@
 
 namespace LightCore
 {
-	class Log
+	struct Log
 	{
 	public:
 		static void Init();

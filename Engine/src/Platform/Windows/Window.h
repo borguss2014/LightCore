@@ -25,8 +25,8 @@ namespace LightCore
 		bool			Vsync;
 
 		WindowProps(const std::string& title = "LightCore Engine",
-			unsigned int width = 1920,
-			unsigned int height = 1080,
+			unsigned int width = 800,
+			unsigned int height = 600,
 			bool fullscreen = false,
 			bool vsync = false)
 			: Title(title), Width(width), Height(height),
@@ -35,7 +35,7 @@ namespace LightCore
 		}
 	};
 
-	class Window : public GenericWindow
+	struct Window : public GenericWindow
 	{
 
 	public:

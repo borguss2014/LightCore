@@ -3,7 +3,7 @@
 namespace LightCore
 {
 
-	class __declspec(novtable) Input
+	struct __declspec(novtable) Input
 	{
 	public:
 		virtual void PollEvents() = 0;
