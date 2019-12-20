@@ -27,7 +27,7 @@ namespace LightCore
 
 	void Application::Run()
 	{
-		LC_CORE_INFO("Entering update loop");
+		//LC_CORE_INFO("Entering update loop");
 
 
 		while (m_Running)

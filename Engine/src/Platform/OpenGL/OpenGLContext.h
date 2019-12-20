@@ -11,6 +11,7 @@ public:
 
 	virtual void Init() override;
 	virtual void SwapBuffers() override;
+	virtual void PrintContextInfo() override;
 private:
 	GLFWwindow* m_WindowHandle;
 };

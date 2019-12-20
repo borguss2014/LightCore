@@ -58,7 +58,7 @@ namespace LightCore
 
 		//SetInputMode(GLFW_CURSOR_DISABLED);
 
-		std::string s("Window created");
+		std::string s("Window initialized");
 		LC_CORE_INFO(s);
 
 		EventSystem::AttachListener(EventType::KeyPressed, std::bind(&Window::OnEvent, this, std::placeholders::_1));
