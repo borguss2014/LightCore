@@ -16,6 +16,8 @@ namespace LightCore
 
 		void OnUpdate();
 
+		void OnEvent(std::unique_ptr<Event> evt);
+
 		std::unique_ptr<GenericWindow> m_Window;
 		bool m_Running;
 	};

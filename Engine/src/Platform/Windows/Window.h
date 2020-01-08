@@ -25,8 +25,8 @@ namespace LightCore
 		bool			Vsync;
 
 		WindowProps(const std::string& title = "LightCore Engine",
-			unsigned int width = 800,
-			unsigned int height = 600,
+			unsigned int width = 1920,
+			unsigned int height = 1080,
 			bool fullscreen = false,
 			bool vsync = false)
 			: Title(title), Width(width), Height(height),
@@ -69,20 +69,17 @@ namespace LightCore
 
 		void SetEventCallback(std::function<void(Event& e)> fn) override;
 
-		void OnEvent(std::unique_ptr<Event> evt);
+		void OnKeyEvent(std::unique_ptr<Event> evt);
 
-	private:
 		WindowProps		m_Properties;
-		GLFWwindow* m_Window;
+		GLFWwindow*		m_Window;
 
-		GLFWmonitor* m_Monitor;
+		GLFWmonitor*	m_Monitor;
 
 		std::unique_ptr<GraphicsContext> m_Context;
 
-	public:
 		static std::unique_ptr<Window> Create(const WindowProps& props);
 
-	private:
 		static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 		static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	};

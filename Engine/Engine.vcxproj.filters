@@ -1226,5 +1226,8 @@
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\LightCore\Core\GenericWindow.cpp">
+      <Filter>src\LightCore\Core</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

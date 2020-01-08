@@ -529,6 +529,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LightCore\Core\Application.cpp" />
+    <ClCompile Include="src\LightCore\Core\GenericWindow.cpp" />
     <ClCompile Include="src\LightCore\Core\Log.cpp" />
     <ClCompile Include="src\LightCore\Events\EventSystem.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

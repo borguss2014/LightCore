@@ -25,5 +25,7 @@ namespace LightCore
 		virtual void* GetNativeWindow() const = 0;
 
 		virtual void SetEventCallback(std::function<void(Event& e)> fn) = 0;
+
+		static std::unique_ptr<GenericWindow> Create();
 	};
 }

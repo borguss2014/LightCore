@@ -11,6 +11,8 @@
 
 #include <LightCore\Events\EventSystem.h>
 
+// TODO(Cristian): Rename Window and GenericWindow to more descriptive platform dependent/independent handles
+
 namespace LightCore
 {
 	Window::Window(const WindowProps& properties)
@@ -61,7 +63,7 @@ namespace LightCore
 		std::string s("Window initialized");
 		LC_CORE_INFO(s);
 
-		EventSystem::AttachListener(EventType::KeyPressed, std::bind(&Window::OnEvent, this, std::placeholders::_1));
+		EventSystem::AttachListener(EventType::KeyPressed, std::bind(&Window::OnKeyEvent, this, std::placeholders::_1));
 	}
 
 	Window::~Window()
@@ -153,16 +155,27 @@ namespace LightCore
 	{
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		{
-			std::unique_ptr<InputEvent> keyDownEvt = std::make_unique<InputEvent>(EventType::KeyPressed);
+			glfwSetWindowShouldClose(window, true);
+
+			LC_CORE_WARN("Window set to close");
+
+			std::unique_ptr<WindowEvt> keyDownEvt = std::make_unique<WindowEvt>(EventType::WindowClose);
 			EventSystem::QueueEvent(std::move(keyDownEvt));
 		}
 	}
 
-	void Window::OnEvent(std::unique_ptr<Event> evt)
+	void Window::OnKeyEvent(std::unique_ptr<Event> evt)
 	{
-		LC_CORE_INFO("Escape pressed");
+		// Get data packed by evt
+		//
+		// if key == ESC
+		// close window
 	}
 
+
+	/* TODO(Cristian): This function is basically useless in a platform independent architecture.
+	* Define in platform independent GenericWindow.cpp
+	*/
 	std::unique_ptr<Window> Window::Create(const WindowProps& props)
 	{
 		return std::make_unique<Window>(props);

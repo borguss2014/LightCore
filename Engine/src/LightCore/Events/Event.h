@@ -18,6 +18,22 @@ namespace LightCore
 		virtual EventType GetType() = 0;
 	};
 
+	struct WindowEvt : public Event
+	{
+		WindowEvt(EventType type) 
+			: m_EventType(type) {
+		}
+
+		~WindowEvt() {}
+
+		virtual EventType GetType() override {
+			return m_EventType;
+		};
+
+	private:
+		EventType m_EventType;
+	};
+
 	struct InputEvent : public Event
 	{
 		InputEvent(EventType type)

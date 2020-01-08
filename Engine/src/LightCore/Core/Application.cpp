@@ -17,12 +17,20 @@ namespace LightCore
 		: m_Running(true)
 	{
 		m_Window = Window::Create(WindowProps());
-		//m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+		
+		EventSystem::AttachListener(EventType::WindowClose, std::bind(&Application::OnEvent, this, std::placeholders::_1));
 	}
 
 	void Application::OnUpdate()
 	{
 		EventSystem::ProcessEvents();
+	}
+
+	void Application::OnEvent(std::unique_ptr<Event> evt)
+	{
+		m_Running = false;
+
+		LC_CORE_WARN("Application received exit cmd...");
 	}
 
 	void Application::Run()
@@ -32,7 +40,7 @@ namespace LightCore
 
 		while (m_Running)
 		{
-			OnUpdate();
+			Application::OnUpdate();
 
 			m_Window->OnUpdate();
 		}
