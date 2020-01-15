@@ -2,7 +2,7 @@
 
 #ifdef LC_PLATFORM_WINDOWS
 
-extern LightCore::Application* LightCore::CreateApplication();
+extern LightCore::platform_application* LightCore::CreateApplication();
 
 int main(int argc, char** argv)
 {

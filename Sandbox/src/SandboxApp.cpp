@@ -1,6 +1,6 @@
 #include <LightCore.h>
 
-struct Sandbox : public LightCore::Application
+struct Sandbox : public LightCore::platform_application
 {
 	Sandbox()
 	{
@@ -13,7 +13,9 @@ struct Sandbox : public LightCore::Application
 	}
 };
 
-LightCore::Application* LightCore::CreateApplication()
+/* TODO(Cristian): Should have an actual main entry point here
+*/
+LightCore::platform_application* LightCore::CreateApplication()
 {
 	return new Sandbox();
 }

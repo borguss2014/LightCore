@@ -142,10 +142,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\LightCore.h" />
-    <ClInclude Include="src\LightCore\Core\Application.h" />
+    <ClInclude Include="src\LightCore\Core\lightcore_keycodes.h" />
+    <ClInclude Include="src\LightCore\Core\platform_application.h" />
     <ClInclude Include="src\LightCore\Core\Core.h" />
     <ClInclude Include="src\LightCore\Core\EntryPoint.h" />
-    <ClInclude Include="src\LightCore\Core\GenericWindow.h" />
+    <ClInclude Include="src\LightCore\Core\platform_window.h" />
     <ClInclude Include="src\LightCore\Core\Input.h" />
     <ClInclude Include="src\LightCore\Core\Log.h" />
     <ClInclude Include="src\LightCore\Events\Event.h" />
@@ -155,7 +156,7 @@
     <ClInclude Include="src\Platform\OpenGL\Camera.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\Shader.h" />
-    <ClInclude Include="src\Platform\Windows\Window.h" />
+    <ClInclude Include="src\Platform\Windows\win32_window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
@@ -528,12 +529,12 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\LightCore\Core\Application.cpp" />
-    <ClCompile Include="src\LightCore\Core\GenericWindow.cpp" />
+    <ClCompile Include="src\LightCore\Core\platform_application.cpp" />
+    <ClCompile Include="src\LightCore\Core\platform_window.cpp" />
     <ClCompile Include="src\LightCore\Core\Log.cpp" />
     <ClCompile Include="src\LightCore\Events\EventSystem.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Platform\Windows\Window.cpp" />
+    <ClCompile Include="src\Platform\Windows\win32_window.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>

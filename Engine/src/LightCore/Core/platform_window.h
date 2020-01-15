@@ -8,11 +8,12 @@
 namespace LightCore
 {
 	struct Event;
+	struct platform_window_props;
 
-	struct __declspec(novtable) GenericWindow
+	struct __declspec(novtable) platform_window
 	{
 	public:
-		virtual ~GenericWindow() = default;
+		virtual ~platform_window() = default;
 
 		virtual void OnUpdate() = 0;
 
@@ -26,6 +27,6 @@ namespace LightCore
 
 		virtual void SetEventCallback(std::function<void(Event& e)> fn) = 0;
 
-		static std::unique_ptr<GenericWindow> Create();
+		static std::unique_ptr<platform_window> Create(const platform_window_props& props);
 	};
 }
