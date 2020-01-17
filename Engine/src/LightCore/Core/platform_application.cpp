@@ -3,7 +3,9 @@
 #include "Platform/Windows/win32_window.h"
 #include "LightCore/Events/EventSystem.h"
 
-// Enable High Performance Graphics
+/* Enable high performance graphics on nVidia Optimus laptops
+*  TODO(Cristian): Should allow the user to select the preferred GPU in the future
+*/
 extern "C" {
 	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
 }

@@ -4,6 +4,10 @@
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
+/* TODO(Cristian): This log system doesn't seem extensible.
+*  Won't be able to change log library during development
+*/
+
 namespace LightCore
 {
 	struct Log
