@@ -6,11 +6,8 @@
 #include <functional>
 
 #include "LightCore/Core/platform_window.h"
-
-#include "LightCore/Renderer/GraphicsContext.h"
-
+#include "LightCore/Renderer/graphics_context.h"
 #include <GLFW/glfw3.h>
-
 #include <LightCore\Events\Event.h>
 
 namespace LightCore
@@ -53,17 +50,15 @@ namespace LightCore
 		void CenterWindow();
 
 		void OnUpdate() override;
+		void OnKeyEvent(std::unique_ptr<Event> evt);
 
 		void SetEventCallback(std::function<void(Event& e)> fn) override;
 
-		void OnKeyEvent(std::unique_ptr<Event> evt);
-
 		platform_window_props	wProps;
 		GLFWwindow*		m_Window;
-
 		GLFWmonitor*	m_Monitor;
 
-		std::unique_ptr<GraphicsContext> m_Context;
+		std::unique_ptr<graphics_context> m_Context;
 
 		static void Framebuffer_Size_Callback(GLFWwindow* window, int width, int height);
 		static void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mods);

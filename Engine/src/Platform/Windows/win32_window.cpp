@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "Platform/OpenGL/OpenGLContext.h"
+#include "Platform/OpenGL/opengl_context.h"
 
 #include <glad/glad.h>
 #include <GL/GL.h>
@@ -37,7 +37,7 @@ namespace LightCore
 
 		LC_ASSERT(m_Window != nullptr, "Failed to create GLFW window");
 
-		m_Context = std::make_unique<OpenGLContext>(m_Window);
+		m_Context = graphics_context::Create(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, this);

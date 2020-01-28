@@ -10,25 +10,21 @@
 
 namespace LightCore
 {
-	struct Log
+	struct platform_log
 	{
-	public:
 		static void Init();
 
-		inline static std::shared_ptr<spdlog::logger> GetCoreLogger() { return s_CoreLogger; }
-		inline static std::shared_ptr<spdlog::logger> GetClientLogger() { return s_ClientLogger; }
-	private:
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;
 		static std::shared_ptr<spdlog::logger> s_ClientLogger;
 	};
 }
 
-#define LC_CORE_TRACE(...)	::LightCore::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define LC_CORE_INFO(...)	::LightCore::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define LC_CORE_WARN(...)	::LightCore::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define LC_CORE_ERROR(...)	::LightCore::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define LC_CORE_TRACE(...)	::LightCore::platform_log::s_CoreLogger->trace(__VA_ARGS__)
+#define LC_CORE_INFO(...)	::LightCore::platform_log::s_CoreLogger->info(__VA_ARGS__)
+#define LC_CORE_WARN(...)	::LightCore::platform_log::s_CoreLogger->warn(__VA_ARGS__)
+#define LC_CORE_ERROR(...)	::LightCore::platform_log::s_CoreLogger->error(__VA_ARGS__)
 
-#define LC_TRACE(...)	::LightCore::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define LC_INFO(...)	::LightCore::Log::GetClientLogger()->info(__VA_ARGS__)
-#define LC_WARN(...)	::LightCore::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define LC_ERROR(...)	::LightCore::Log::GetClientLogger()->error(__VA_ARGS__)
+#define LC_TRACE(...)	::LightCore::platform_log::s_ClientLogger->trace(__VA_ARGS__)
+#define LC_INFO(...)	::LightCore::platform_log::s_ClientLogger->info(__VA_ARGS__)
+#define LC_WARN(...)	::LightCore::platform_log::s_ClientLogger->warn(__VA_ARGS__)
+#define LC_ERROR(...)	::LightCore::platform_log::s_ClientLogger->error(__VA_ARGS__)

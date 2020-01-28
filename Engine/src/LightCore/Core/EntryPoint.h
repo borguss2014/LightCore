@@ -6,7 +6,7 @@ extern LightCore::platform_application* LightCore::CreateApplication();
 
 int main(int argc, char** argv)
 {
-	LightCore::Log::Init();
+	LightCore::platform_log::Init();
 
 	auto app = LightCore::CreateApplication();
 	app->Run();

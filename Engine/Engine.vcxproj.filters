@@ -60,9 +60,6 @@
     <ClInclude Include="src\LightCore\Core\EntryPoint.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\LightCore\Core\Input.h">
-      <Filter>src\LightCore\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\LightCore\Core\Log.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
@@ -75,20 +72,11 @@
     <ClInclude Include="src\LightCore\Events\EventSystem.h">
       <Filter>src\LightCore\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h">
-      <Filter>src\LightCore\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\Camera.h">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\Shader.h">
       <Filter>src\Platform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
-      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\common.hpp">
       <Filter>vendor\glm\glm</Filter>
@@ -1209,6 +1197,27 @@
     <ClInclude Include="src\LightCore\Core\lightcore_keycodes.h">
       <Filter>src\LightCore\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\LightCore\Core\platform_input.h">
+      <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\win32_input.h">
+      <Filter>src\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Core\lightcore_mousecodes.h">
+      <Filter>src\LightCore\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Renderer\graphics_context.h">
+      <Filter>src\LightCore\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightCore\Renderer\renderer_api.h">
+      <Filter>src\LightCore\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\opengl_renderer_api.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\opengl_context.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LightCore\Core\Log.cpp">
@@ -1216,12 +1225,6 @@
     </ClCompile>
     <ClCompile Include="src\LightCore\Events\EventSystem.cpp">
       <Filter>src\LightCore\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
-      <Filter>src\Platform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
-      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\LightCore\Core\platform_window.cpp">
       <Filter>src\LightCore\Core</Filter>
@@ -1231,6 +1234,21 @@
     </ClCompile>
     <ClCompile Include="src\LightCore\Core\platform_application.cpp">
       <Filter>src\LightCore\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\win32_input.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightCore\Renderer\graphics_context.cpp">
+      <Filter>src\LightCore\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightCore\Renderer\renderer_api.cpp">
+      <Filter>src\LightCore\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\opengl_renderer_api.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\opengl_context.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

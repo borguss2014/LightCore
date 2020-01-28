@@ -3,10 +3,10 @@
 
 namespace LightCore
 {
-	std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-	std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
+	std::shared_ptr<spdlog::logger> platform_log::s_CoreLogger;
+	std::shared_ptr<spdlog::logger> platform_log::s_ClientLogger;
 
-	void Log::Init()
+	void platform_log::Init()
 	{
 		s_CoreLogger = spdlog::stdout_color_mt("LightCore");
 		s_CoreLogger->set_pattern("%^[%T] %n: %v%$");

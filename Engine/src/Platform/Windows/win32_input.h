@@ -1,12 +1,12 @@
 #pragma once
 
-#include "LightCore/Core/Input.h"
+#include "LightCore/Core/platform_input.h"
 
 namespace LightCore
 {
-	struct WindowsInput : public Input
+	struct win32_input : public platform_input
 	{
-		WindowsInput();
+		win32_input();
 
 		virtual void PollEvents() override;
 

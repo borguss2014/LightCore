@@ -21,7 +21,7 @@ namespace LightCore
 		windowProps.height= 600;
 		windowProps.fullscreen = false;
 		windowProps.vsync = false;
-		windowProps.title = "LightCore Engine";
+		windowProps.title = "LightCore v0.0.1";
 
 		platformWindow = platform_window::Create(windowProps);
 		

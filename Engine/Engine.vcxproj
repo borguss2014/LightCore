@@ -143,21 +143,24 @@
   <ItemGroup>
     <ClInclude Include="src\LightCore.h" />
     <ClInclude Include="src\LightCore\Core\lightcore_keycodes.h" />
+    <ClInclude Include="src\LightCore\Core\lightcore_mousecodes.h" />
     <ClInclude Include="src\LightCore\Core\platform_application.h" />
     <ClInclude Include="src\LightCore\Core\Core.h" />
     <ClInclude Include="src\LightCore\Core\EntryPoint.h" />
     <ClInclude Include="src\LightCore\Core\platform_window.h" />
-    <ClInclude Include="src\LightCore\Core\Input.h" />
+    <ClInclude Include="src\LightCore\Core\platform_input.h" />
     <ClInclude Include="src\LightCore\Core\Log.h" />
     <ClInclude Include="src\LightCore\Events\Event.h" />
     <ClInclude Include="src\LightCore\Events\EventListener.h" />
     <ClInclude Include="src\LightCore\Events\EventSystem.h" />
-    <ClInclude Include="src\LightCore\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\LightCore\Renderer\graphics_context.h" />
+    <ClInclude Include="src\LightCore\Renderer\renderer_api.h" />
     <ClInclude Include="src\Platform\OpenGL\Camera.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\opengl_context.h" />
+    <ClInclude Include="src\Platform\OpenGL\opengl_renderer_api.h" />
     <ClInclude Include="src\Platform\OpenGL\Shader.h" />
     <ClInclude Include="src\Platform\Windows\win32_window.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Platform\Windows\win32_input.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -533,9 +536,12 @@
     <ClCompile Include="src\LightCore\Core\platform_window.cpp" />
     <ClCompile Include="src\LightCore\Core\Log.cpp" />
     <ClCompile Include="src\LightCore\Events\EventSystem.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\LightCore\Renderer\graphics_context.cpp" />
+    <ClCompile Include="src\LightCore\Renderer\renderer_api.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\opengl_context.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\opengl_renderer_api.cpp" />
     <ClCompile Include="src\Platform\Windows\win32_window.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="src\Platform\Windows\win32_input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
